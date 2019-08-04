@@ -1,0 +1,39 @@
+{
+    "name": "note-cli",
+    "version": "0.0.1",
+    "description": "Shortcuts to create or navigate notes files quickly.",
+    "main": "dist/index.js",
+    "scripts": {
+        "test": "jest",
+        "clean": "rm -rf ./dist/*",
+        "format": "prettier --write **/*.{ts,js,md,json}",
+        "lint": "eslint && prettier -l",
+        "build": "tsc",
+        "watch": "tsc -w"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/jemjam/notes-cli.git"
+    },
+    "keywords": [
+        "markdown",
+        "notes",
+        "personal"
+    ],
+    "author": "Jem Bezooyen <hey@jem.dev>",
+    "license": "UNLICENSED",
+    "bugs": {
+        "url": "https://github.com/jemjam/notes-cli/issues"
+    },
+    "homepage": "https://github.com/jemjam/notes-cli#readme",
+    "dependencies": {
+        "@typescript-eslint/eslint-plugin": "^1.13.0",
+        "@typescript-eslint/parser": "^1.13.0",
+        "jest": "^24.8.0",
+        "prettier": "^1.18.2",
+        "typescript": "^3.5.3"
+    },
+    "devDependencies": {
+        "eslint": "^6.1.0"
+    }
+}
