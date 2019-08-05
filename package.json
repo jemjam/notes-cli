@@ -34,8 +34,9 @@
         "@typescript-eslint/eslint-plugin": "^1.13.0",
         "@typescript-eslint/parser": "^1.13.0",
         "inquirer": "^6.5.0",
-        "inquirer-datepicker-prompt": "^0.4.2",
+        "inquirer-datepicker": "^1.0.0",
         "jest": "^24.8.0",
+        "moment": "^2.24.0",
         "prettier": "^1.18.2",
         "typescript": "^3.5.3"
     },
