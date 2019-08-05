@@ -1,7 +1,4 @@
-const world = '🗺️'
+#!/usr/bin/env node
 
-export function hello(word: string = world): string {
-    return `Hello ${word}! `
-}
+console.log("This is as easy as it comes.")
 
-console.log(hello('Sebastian'))
