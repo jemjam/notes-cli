@@ -2,7 +2,6 @@
 import inquirer from 'inquirer'
 import moment from 'moment'
 
-console.log('Welcome to notescli.')
 import { Question, Answers } from 'inquirer'
 import imgdatepicker from 'inquirer-datepicker'
 
@@ -12,7 +11,7 @@ inquirer.registerPrompt(
 )
 
 interface DateQuestion extends Question {
-    format: string[];
+    format: string[]; // Moment.js string format as array of editables
     initial: Date;
 }
 
