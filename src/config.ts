@@ -1,11 +1,5 @@
-import { config } from 'rxjs'
-import path from 'path'
 import process from 'process'
-import fs from 'fs'
 import os from 'os'
-
-// Load the `.jemfile` config file if it exists (user home)
-// Keep track of and read application configuration values
 
 export interface NotesConfig {
     defaultEditor: string
@@ -23,18 +17,13 @@ export async function loadConfig(): Promise<NotesConfig> {
     try {
         const configuration = await import(fullPathToResolvedConfiguration)
         const loadedConfig = configuration.default
-        // console.log('default', loadedConfig)
-        // console.log('config', configuration)
         return {
             ...defaultConfig,
-            ...loadedConfig
+            ...loadedConfig,
         }
-        return configuration
     } catch (error) {
-        console.error(
-            'Failed to load a .jemfile.ts',
-            '\nUsing default configuration instead...',
-        )
+        console.error(`Failed to load '~/.jemfile.ts'`)
+        console.log('Using default configuration instead...')
         return defaultConfig
     }
 }
