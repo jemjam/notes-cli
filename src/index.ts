@@ -1,34 +1,43 @@
 #!/usr/bin/env node
 import inquirer from 'inquirer'
 import moment from 'moment'
+import cp from 'child_process'
+// import minimist from 'minimist'
+import os from 'os'
 
-import { Question, Answers } from 'inquirer'
-import imgdatepicker from 'inquirer-datepicker'
+import { Answers } from 'inquirer'
+import { dateQuestion } from './datepicker'
+import { NotesConfig } from './config'
 
-inquirer.registerPrompt(
-    'datetime',
-    imgdatepicker as inquirer.prompts.PromptConstructor,
-)
+// inquirer.prompt([dateQuestion]).then((answers: Answers): void => {
 
-interface DateQuestion extends Question {
-    format: string[]; // Moment.js string format as array of editables
-    initial: Date;
+//     // console.log('load up some config bro', os.homedir())
+//     console.log(
+//         'We got answers \n',
+//         moment(answers.note).format('dddd MMMM Do[,] YYYY'),
+//     )
+// })
+interface ConfigWithAnswers {
+    nextPromise: Answers
+    config: NotesConfig
 }
 
-// An example of a date question in action.
-const myQuestion: DateQuestion = {
-    name: 'note',
-    message: 'This asks for a specific date:',
-    type: 'datetime',
-    format: ['DD', '-', 'MM', '-', 'YYYY', ' ', 'ddd'],
-    initial: new Date(),
-}
-
-inquirer
-    .prompt([myQuestion])
-    .then((answers: Answers): void =>
+import { loadConfig } from './config'
+const configuration = await loadConfig()
+    .then((conf:NotesConfig): ConfigWithAnswers => {
+        console.log('We loaded configuration', conf)
+        return {
+            nextPromise: inquirer.prompt([dateQuestion]),
+            config: conf,
+        }
+    })
+    .then((answers:ConfigWithAnswers): void => {
         console.log(
             'We got answers \n',
             moment(answers.note).format('dddd MMMM Do[,] YYYY'),
-        ),
-    )
+        )
+        cp.spawn(config.defaultConfig,  (err:Error, val:any): void => {
+            console.log('and all was done', val)
+        })
+        // return cp.spawn("ls ~")
+    })
