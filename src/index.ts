@@ -1,42 +1,52 @@
 #!/usr/bin/env node
-import inquirer from 'inquirer'
-import moment from 'moment'
 import process from 'process'
-// import { Answers } from 'inquirer'
-// import { dateQuestion } from './datepicker'
-// import { loadConfig, NotesConfig } from './config'
+import openFileWithEditor from './commands/open'
 import { ParsedArgs } from 'minimist'
-import minimist = require('minimist');
-import { dateValues, formattedDateValues } from './dailies';
+import minimist = require('minimist')
+// import { formattedDateValues } from './dailies'
+import { version } from '../package.json'
+import { loadConfig, Configuration } from './config'
+import open from './commands/open'
+
+interface ParameterHash {
+    [key: string]: boolean | string
+}
+
+export interface CliCommandContext {
+    command: string
+    subCommands: string[] | undefined
+    parameters: ParameterHash
+}
+interface CommandsHash {
+    [key: string]: (context:CliCommandContext) => Promise<unknown>
+}
+
+const placeHolder = async (context:CliCommandContext): Promise<void> => {
+    console.log('You did good kid', context)
+}
+
 
 // Main function, immediately executed
-(async (): Promise<void> => {
-    console.log('Holaa')
+;(async (): Promise<void> => {
+    console.log(`JemJamCli v${version}`)
 
     const cliArgs: ParsedArgs = minimist(process.argv.slice(2))
-    const config: NotesConfig = await loadConfig()
-
-    const commandToRun = cliArgs._.length > 0 ? cliArgs._[0] : 'noCommand'
-    switch (commandToRun) {
-        case 'open': {
-            console.log('open the file', formattedDateValues)
-            break
-        }
-        case 'create': {
-            console.log('create something great')
-            break
-        }
-        case 'noCommand': {
-            console.log('No command was given')
-            break
-        }
-        default: {
-            console.log("Your command wasn't valid")
-            break
-        }
+    if (cliArgs._.length === 0) {
+        return console.log('No command supplied')
+        // TODO: Maybe a good time to show some generic help
     }
-    console.log('arguments', cliArgs)
 
-    // const answers:Answers = await inquirer.prompt([dateQuestion])
-    // console.log('and some answers', answers)
+    const { _, ...parameters } = cliArgs
+    const [command, ...subCommands] = _
+    const context: CliCommandContext = { command, subCommands, parameters }
+
+    const commandsHash: CommandsHash = {
+        open: open,
+        create: placeHolder,
+    }
+
+    if (commandsHash[command]) await commandsHash[command](context)
+    else console.error(`Command '${command}' not valid`)
+
 })()
+
