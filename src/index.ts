@@ -8,6 +8,8 @@ import process from 'process'
 import { ParsedArgs } from 'minimist'
 import minimist = require('minimist');
 import { dateValues, formattedDateValues } from './dailies';
+import { loadConfig, NotesConfig } from './config'
+import openFile from './commands/open';
 
 // Main function, immediately executed
 (async (): Promise<void> => {
@@ -16,10 +18,15 @@ import { dateValues, formattedDateValues } from './dailies';
     const cliArgs: ParsedArgs = minimist(process.argv.slice(2))
     const config: NotesConfig = await loadConfig()
 
+    // build a hash of the available commands
     const commandToRun = cliArgs._.length > 0 ? cliArgs._[0] : 'noCommand'
+    // then just load the command via:
+    // commandsToRun[commandToRun]
+
     switch (commandToRun) {
         case 'open': {
             console.log('open the file', formattedDateValues)
+            openFile('~/demo-file.md')
             break
         }
         case 'create': {

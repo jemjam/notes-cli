@@ -17,6 +17,7 @@ export interface FormattedDateValues {
 }
 
 const formatDates = (dateMap: DateValuesMap): FormattedDateValues => {
+    // Return a map of formatted day stamps.
     const longFormat = 'YYYY-MM-DD'
     const formattedStrings: FormattedDateValues = {}
     Object.keys(dateMap).forEach((key): void => {

@@ -32,6 +32,7 @@
     "dependencies": {
         "@types/inquirer": "^6.5.0",
         "@types/minimist": "^1.2.0",
+        "@types/node": "^12.7.2",
         "@typescript-eslint/eslint-plugin": "^1.13.0",
         "@typescript-eslint/parser": "^1.13.0",
         "inquirer": "^6.5.0",

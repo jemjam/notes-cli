@@ -22,7 +22,7 @@ export async function loadConfig(): Promise<NotesConfig> {
             ...loadedConfig,
         }
     } catch (error) {
-        console.error(`Failed to load '~/.jemfile.ts'`)
+        console.error(`Failed to load '~/.jemfile.ts'`, error)
         console.log('Using default configuration instead...')
         return defaultConfig
     }
