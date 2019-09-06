@@ -8,9 +8,10 @@
     "main": "dist/index.js",
     "scripts": {
         "test": "jest",
+        "test:watch": "jest --watch",
         "clean": "rm -rf ./dist/*",
         "format": "prettier --write **/*.{ts,js,md,json}",
-        "lint": "eslint && prettier -l",
+        "lint": "eslint ./src/**/*.ts && prettier -l ./src/**/*.ts",
         "build": "tsc",
         "watch": "tsc -w"
     },
@@ -45,7 +46,9 @@
         "typescript": "^3.5.3"
     },
     "devDependencies": {
+        "@types/jest": "^24.0.18",
         "eslint": "^6.1.0",
-        "eslint-config-prettier": "^6.0.0"
+        "eslint-config-prettier": "^6.0.0",
+        "ts-jest": "^24.0.2"
     }
 }

@@ -1,4 +1,6 @@
 import cp, { ChildProcess, SpawnOptions } from 'child_process'
+import { CliCommandContext } from '../index'
+import { loadConfig } from '../config'
 
 type Command = string
 
@@ -22,9 +24,6 @@ const registerHandlers = (Process: ChildProcess): void => {
         Process.stdout.on('data', (d): void => log('Data:', d))
     }
 }
-
-import { CliCommandContext } from '../index'
-import { loadConfig } from '../config'
 
 export async function openFileWithEditor(
     filePath: string, // The actual file to open

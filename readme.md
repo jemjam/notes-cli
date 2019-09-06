@@ -14,7 +14,8 @@ $ npm run-script [script]
     watch   Compile Typescript in `watch` mode (for development)
     clean   RimRaf the 'dist' folder, great before a rebuild
 
-    test    Run any tests (via 'jest')
-    lint    Run 'eslint' and 'prettier'
-    format  Run `prettier --write` on pretty much everything
+    test          Run any tests (via 'jest')
+    test:watch    Run tests in watch mode
+    lint          Run 'eslint' and 'prettier'
+    format        Run `prettier --write` on pretty much everything
 ```

@@ -2,9 +2,11 @@
 import process from 'process'
 import { ParsedArgs } from 'minimist'
 import minimist = require('minimist')
-// import { version } from '../package.json'
 import readPkg from 'read-pkg'
 import open from './commands/open'
+
+// import { dailyCreate } from './utils/dailies'
+import daily from './utils/dailies'
 
 interface ParameterHash {
     [key: string]: boolean | string
@@ -27,8 +29,7 @@ const placeHolder = async (context:CliCommandContext): Promise<void> => {
 // Main function, immediately executed
 ;(async (): Promise<void> => {
     const thisPackage = await readPkg()
-    console.log('Package', thisPackage.version)
-    // console.log(`JemJamCli v${version}`)
+    console.log(`JemJamCli v${thisPackage.version}`)
 
     const cliArgs: ParsedArgs = minimist(process.argv.slice(2))
     const { _, ...parameters } = cliArgs
@@ -44,6 +45,7 @@ const placeHolder = async (context:CliCommandContext): Promise<void> => {
     const commandsHash: CommandsHash = {
         open: open,
         create: placeHolder,
+        daily: daily,
     }
 
     if (commandsHash[command]) await commandsHash[command](context)

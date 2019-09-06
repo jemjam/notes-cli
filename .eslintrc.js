@@ -6,4 +6,9 @@ module.exports = {
         'prettier',
         'prettier/@typescript-eslint',
     ],
+    rules: {
+        '@typescript-eslint/explicit-function-return-type': ['warn', {
+            allowHigherOrderFunctions: true,
+        }],
+    },
 }

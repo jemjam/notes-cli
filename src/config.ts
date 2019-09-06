@@ -1,9 +1,11 @@
 import os from 'os'
 import { EditorsMap } from "./commands/open";
+import {DailiesConfiguration } from "./utils/dailies"
 
 export interface Configuration {
     defaultEditor?: string
     allEditors?: EditorsMap
+    dailies?:DailiesConfiguration
 }
 
 export async function loadConfig(): Promise<Configuration> {
